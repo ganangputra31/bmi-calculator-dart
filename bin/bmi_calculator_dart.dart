@@ -12,5 +12,20 @@ void main() {
     return;
   }
 
-  print("Input valid.");
+  double tinggiM = tinggiCm / 100;
+  double bmi = beratKg / (tinggiM * tinggiM);
+
+  String kategori;
+  if (bmi < 18.5) {
+    kategori = "Kurus";
+  } else if (bmi < 25) {
+    kategori = "Normal";
+  } else if (bmi < 30) {
+    kategori = "Gemuk";
+  } else {
+    kategori = "Obesitas";
+  }
+
+  print("BMI Anda: ${bmi.toStringAsFixed(2)}");
+  print("Kategori: $kategori");
 }
