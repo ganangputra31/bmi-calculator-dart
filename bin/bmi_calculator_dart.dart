@@ -1,17 +1,18 @@
-import 'dart:io';
-
 void main() {
-  stdout.write("Masukkan tinggi badan (cm): ");
-  double? tinggiCm = double.tryParse(stdin.readLineSync() ?? "");
+  List<Map<String, dynamic>> riwayat = [];
 
-  stdout.write("Masukkan berat badan (kg): ");
-  double? beratKg = double.tryParse(stdin.readLineSync() ?? "");
+  hitungBMI(170, 65, riwayat);
+  hitungBMI(165, 75, riwayat);
+  hitungBMI(180, 85, riwayat);
 
-  if (tinggiCm == null || beratKg == null || tinggiCm <= 0 || beratKg <= 0) {
-    print("Input tidak valid. Masukkan angka lebih dari 0.");
-    return;
-  }
+  tampilkanRiwayat(riwayat);
+}
 
+void hitungBMI(
+  double tinggiCm,
+  double beratKg,
+  List<Map<String, dynamic>> riwayat,
+) {
   double tinggiM = tinggiCm / 100;
   double bmi = beratKg / (tinggiM * tinggiM);
 
@@ -26,6 +27,23 @@ void main() {
     kategori = "Obesitas";
   }
 
-  print("BMI Anda: ${bmi.toStringAsFixed(2)}");
-  print("Kategori: $kategori");
+  riwayat.add({
+    'tinggi': tinggiCm,
+    'berat': beratKg,
+    'bmi': bmi,
+    'kategori': kategori,
+  });
+}
+
+void tampilkanRiwayat(List<Map<String, dynamic>> riwayat) {
+  print("=== Riwayat Perhitungan BMI ===");
+
+  for (int i = 0; i < riwayat.length; i++) {
+    print(
+      "${i + 1}. Tinggi: ${riwayat[i]['tinggi']} cm, "
+      "Berat: ${riwayat[i]['berat']} kg, "
+      "BMI: ${riwayat[i]['bmi'].toStringAsFixed(2)}, "
+      "Kategori: ${riwayat[i]['kategori']}",
+    );
+  }
 }
